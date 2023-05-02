@@ -1,4 +1,6 @@
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -7,7 +9,7 @@ namespace DemoApp
         public DemoLabel(string text = null)
         {
             Text = text;
-            BackgroundColor = Color.FloralWhite;
+            BackgroundColor = Colors.FloralWhite;
             HorizontalTextAlignment = TextAlignment.Center;
         }
 

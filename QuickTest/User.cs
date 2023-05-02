@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using NUnit.Framework;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 
 namespace QuickTest
 {
@@ -27,6 +28,8 @@ namespace QuickTest
             });
 
             WireNavigation();
+
+            (app as IApplication).CreateWindow(null);
         }
 
         public NavigationPage CurrentNavigationPage {

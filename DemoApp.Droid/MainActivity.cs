@@ -1,27 +1,17 @@
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using DemoApp;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui;
 
-namespace FormsTest.Droid
+namespace DemoApp.Droid;
+
+[Activity(
+    Label = nameof(DemoApp),
+    Icon = "@drawable/icon",
+    Theme = "@style/Maui.SplashTheme",
+    MainLauncher = true,
+    ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+public class MainActivity : MauiAppCompatActivity
 {
-    [Activity(
-        Label = nameof(DemoApp),
-        Icon = "@drawable/icon",
-        Theme = "@style/MyTheme",
-        MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsAppCompatActivity
-    {
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            Forms.Init(this, savedInstanceState);
-
-            LoadApplication(new App());
-        }
-    }
 }
+

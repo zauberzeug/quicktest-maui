@@ -1,5 +1,7 @@
 using System.Collections.Generic;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -12,7 +14,7 @@ namespace DemoApp
 
             var searchbar = new SearchBar {
                 AutomationId = "searchbar_automation_id",
-                BackgroundColor = Color.White,
+                BackgroundColor = Colors.White,
                 HeightRequest = 48, // HACK: https://bugzilla.xamarin.com/show_bug.cgi?id=43975
             };
 

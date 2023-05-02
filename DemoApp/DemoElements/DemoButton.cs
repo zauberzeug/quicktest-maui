@@ -1,4 +1,6 @@
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -8,7 +10,8 @@ namespace DemoApp
         {
             Text = text;
 
-            BackgroundColor = Color.AliceBlue;
+            BackgroundColor = Colors.AliceBlue;
+            TextColor = Colors.Black;
 
             Command = new Command(o => App.ShowMessage("Success", text + " tapped"));
         }

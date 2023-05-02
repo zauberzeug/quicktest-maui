@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 
 namespace QuickTest
 {
@@ -32,7 +33,7 @@ namespace QuickTest
             result.AddRange((element as ContentPage)?.Content?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ContentView)?.Content.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ScrollView)?.Content.Find(predicate, containerPredicate) ?? empty);
-            result.AddRange((element as Layout<View>)?.Children.ToList().SelectMany(child => child.Find(predicate, containerPredicate)) ?? empty);
+            result.AddRange((element as Layout)?.Children.ToList().SelectMany(child => (child as Element)?.Find(predicate, containerPredicate) ?? empty) ?? empty);
             result.AddRange((element as ListView)?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ViewCell)?.View?.Find(predicate, containerPredicate) ?? empty);
 
@@ -149,7 +150,7 @@ namespace QuickTest
                 return;
 
             foreach (var info in result.Where(i => i.InvokeTap == null))
-                info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement));
+                info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement, null));
         }
 
         public static List<ElementInfo> Find(this ListView listView, Predicate<Element> predicate, Predicate<Element> containerPredicate)

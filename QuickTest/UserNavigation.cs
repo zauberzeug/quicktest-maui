@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace QuickTest
 {
@@ -29,7 +30,7 @@ namespace QuickTest
 
         void HandleMainPageChanged() => HandlePageAppearing(app.MainPage);
 
-        void HandleFlyoutPagePropertyChanging(object sender, Xamarin.Forms.PropertyChangingEventArgs e)
+        void HandleFlyoutPagePropertyChanging(object sender, Microsoft.Maui.Controls.PropertyChangingEventArgs e)
         {
             var flyoutPage = sender as FlyoutPage;
 
@@ -60,7 +61,7 @@ namespace QuickTest
         // To be used with Page classes implementing IPageContainer.
         // Luckily, even though IPageContainer does not include the property changing event,
         // all classes implementing IPageContainer do send this event for CurrentPage.
-        void HandleContainerPagePropertyChanging(object sender, Xamarin.Forms.PropertyChangingEventArgs e)
+        void HandleContainerPagePropertyChanging(object sender, Microsoft.Maui.Controls.PropertyChangingEventArgs e)
         {
             var pageContainer = sender as IPageContainer<Page>;
             if (e.PropertyName != nameof(pageContainer.CurrentPage))
@@ -94,13 +95,11 @@ namespace QuickTest
         void HandlePageAppearing(Page page)
         {
             EnablePlatform(page);
-            SendAppearing(page);
             SubscribeToPageEvents(page);
         }
 
         void HandlePageDisappearing(Page page)
         {
-            SendDisappearing(page);
             UnsubscribeFromPageEvents(page);
         }
 
@@ -114,28 +113,6 @@ namespace QuickTest
             } else if (page is IPageContainer<Page> pageContainer) {
                 EnablePlatform(pageContainer.CurrentPage);
             }
-        }
-
-        void SendAppearing(Page page)
-        {
-            page.SendAppearing();
-            if (page is FlyoutPage flyoutPage) {
-                if (flyoutPage.IsPresented)
-                    flyoutPage.Flyout.SendAppearing();
-                else
-                    flyoutPage.Detail.SendAppearing();
-            }
-        }
-
-        void SendDisappearing(Page page)
-        {
-            if (page is FlyoutPage flyoutPage) {
-                if (flyoutPage.IsPresented)
-                    flyoutPage.Flyout.SendDisappearing();
-                else
-                    flyoutPage.Detail.SendDisappearing();
-            }
-            page.SendDisappearing();
         }
 
         void SubscribeToPageEvents(Page page)

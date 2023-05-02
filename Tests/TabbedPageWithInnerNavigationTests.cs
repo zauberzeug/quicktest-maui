@@ -16,7 +16,7 @@ namespace Tests
             Launch(new App());
             OpenMenu("TabbedPage inner navigation");
 
-            expectedLog = "A(FlyoutPage) A(NavigationPage) A(Navigation) D(Navigation) D(NavigationPage) A(TabbedPage) A(Nav Tab A) A(Tab A) ";
+            expectedLog = "A(NavigationPage) A(Navigation) A(FlyoutPage) D(Navigation) D(NavigationPage) A(TabbedPage) A(Nav Tab A) A(Tab A) ";
             Assert.That(App.PageLog, Is.EqualTo(expectedLog));
         }
 
@@ -93,7 +93,7 @@ namespace Tests
             ShouldNotSee("Tab A");
             Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Tab A) D(Nav Tab A) D(TabbedPage) D(FlyoutPage) A(Modal) "));
             Tap("Close");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Modal) A(FlyoutPage) A(TabbedPage) A(Nav Tab A) A(Tab A) "));
+            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Modal) A(TabbedPage) A(Nav Tab A) A(Tab A) A(FlyoutPage) "));
         }
 
         [Test]

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -9,7 +11,7 @@ namespace DemoApp
         {
             ItemsSource = new List<string> { "A", "B", "C" };
             ItemTemplate = new DataTemplate(typeof(RecyclingCell));
-            BackgroundColor = Color.GhostWhite;
+            BackgroundColor = Colors.GhostWhite;
 
             Label header;
             Header = header = new Label() { Text = "Reload Same" };

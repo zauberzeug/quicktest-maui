@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -13,7 +14,11 @@ namespace QuickTest
         {
             foreach (var method in obj.GetType().GetMethods(bindingFlags))
                 if (method.Name.Split('.').Last() == methodName && method.GetParameters().Length == parameters.Length)
+                {
                     method.Invoke(obj, parameters);
+                    return;
+                }
+            throw new InvalidOperationException($"Method with name {methodName} and parameter count {parameters.Length} not found on type {obj.GetType().FullName}");
         }
     }
 }

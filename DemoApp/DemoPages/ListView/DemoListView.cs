@@ -1,5 +1,6 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace DemoApp
 {
@@ -8,8 +9,7 @@ namespace DemoApp
         public DemoListView(ListViewCachingStrategy cachingStrategy) : base(cachingStrategy)
         {
             // ListView ignores caching stragey on platforms where recycling is not supported.
-            // ListView will use caching strategy when runtimePlatform is null ("unit test mode"),
-            // which can be set when initialising Xamarin.Forms.Mocks.
+            // ListView will use caching strategy when runtimePlatform is null ("unit test mode").
             if (CachingStrategy != cachingStrategy)
                 throw new ArgumentException("Caching strategy must not be ignored.");
         }

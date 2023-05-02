@@ -3,7 +3,8 @@ using System.Linq;
 using DemoApp;
 using NUnit.Framework;
 using QuickTest;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace Tests
 {
@@ -164,7 +165,7 @@ namespace Tests
         [Test]
         public void Slider()
         {
-            var expectedLog = "A(FlyoutPage) A(NavigationPage) A(Navigation) D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) ";
+            var expectedLog = "A(NavigationPage) A(Navigation) A(FlyoutPage) D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) ";
             Assert.That(App.PageLog, Is.EqualTo(expectedLog));
 
             Input("slider_automation_id", 10);

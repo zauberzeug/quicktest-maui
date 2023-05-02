@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -17,7 +19,7 @@ namespace DemoApp
             IsGroupingEnabled = true;
             GroupDisplayBinding = new Binding(nameof(StringGroup.Title));
 
-            BackgroundColor = Color.GhostWhite;
+            BackgroundColor = Colors.GhostWhite;
 
             Label header;
             Header = header = new Label() { Text = "Reverse" };

@@ -4,7 +4,9 @@ using DemoApp;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using QuickTest;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using System.Collections.Generic;
 
 namespace Tests
 {

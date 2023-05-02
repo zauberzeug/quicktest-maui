@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace QuickTest
 {
@@ -44,7 +45,7 @@ namespace QuickTest
 
             result += (element as ContentView)?.Content.Render();
             result += (element as ScrollView)?.Content.Render();
-            result += string.Join("", (element as Layout<View>)?.Children.Select(c => c.Render()) ?? new[] { "" });
+            result += string.Join("", (element as Layout)?.Children.Select(c => (c as Element)?.Render() ?? "") ?? new[] { "" });
             result += (element as ListView)?.Render();
 
             result += (element as Label)?.FormattedText?.ToString() ?? (element as Label)?.Text;

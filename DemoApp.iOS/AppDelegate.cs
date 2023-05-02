@@ -1,21 +1,12 @@
-using DemoApp;
-using Foundation;
+﻿using Foundation;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
 
-namespace FormsTest.iOS
+namespace DemoApp.iOS;
+
+public class AppDelegate : MauiUIApplicationDelegate
 {
-    [Register(nameof(AppDelegate))]
-    public class AppDelegate : FormsApplicationDelegate
-    {
-        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
-        {
-            Forms.Init();
-
-            LoadApplication(new App());
-
-            return base.FinishedLaunching(uiApplication, launchOptions);
-        }
-    }
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }
+

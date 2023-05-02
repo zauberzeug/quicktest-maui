@@ -27,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoSlider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoImage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CarouselDemoPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\ListView\ListViewDemoPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\ListView\DemoListViewWithTextCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\ListView\DemoListViewWithGestureRecognizers.cs" />
@@ -46,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\PopupDemoPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PageExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\NestedTabbedPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MauiProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)DemoPages\" />

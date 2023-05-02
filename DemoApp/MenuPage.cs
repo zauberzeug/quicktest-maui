@@ -1,5 +1,6 @@
 using System;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace DemoApp
 {
@@ -23,7 +24,6 @@ namespace DemoApp
                         CreateMenuButton("Popups", () => new PopupDemoPage()),
                         CreateMenuButton("TabbedPage", () => new TabbedPageDemoPage()),
                         CreateMenuButton("TabbedPage inner navigation", () => new TabbedPageDemoPage(withInnerNavigation: true), withNavigationPage: false),
-                        CreateMenuButton("CarouselPage", () => new CarouselDemoPage()),
                         CreateMenuButton("TitleViewPage", () => new TitleViewPage()),
                         CreateMenuButton("TabbedTitleViewPage", () => new TabbedTitleViewPage()),
                         CreateMenuButton("NestedTabbedPage", () => new NestedTabbedPage()),

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
-using ListViewItemsList = Xamarin.Forms.Internals.TemplatedItemsList<Xamarin.Forms.ItemsView<Xamarin.Forms.Cell>, Xamarin.Forms.Cell>;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using ListViewItemsList = Microsoft.Maui.Controls.Internals.TemplatedItemsList<Microsoft.Maui.Controls.ItemsView<Microsoft.Maui.Controls.Cell>, Microsoft.Maui.Controls.Cell>;
 
 namespace QuickTest
 {

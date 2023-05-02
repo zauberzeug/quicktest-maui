@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace DemoApp
 {
@@ -14,7 +16,7 @@ namespace DemoApp
             ItemTemplate = new DataTemplate(typeof(StringDemoCell));
             IsGroupingEnabled = true;
             GroupHeaderTemplate = new DataTemplate(typeof(GroupHeaderCell));
-            BackgroundColor = Color.GhostWhite;
+            BackgroundColor = Colors.GhostWhite;
 
             ItemTapped += (sender, e) => App.ShowMessage("Success", (e.Item as string) + " tapped");
         }

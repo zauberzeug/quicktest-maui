@@ -16,7 +16,7 @@ namespace Tests
             Launch(new App());
             OpenMenu("NestedTabbedPage");
 
-            expectedLog = "A(FlyoutPage) A(NavigationPage) A(Navigation) D(Navigation) D(NavigationPage) A(NavigationPage) A(NestedTabbedPage) A(Outer Tab A) A(Tab A) ";
+            expectedLog = "A(NavigationPage) A(Navigation) A(FlyoutPage) D(Navigation) D(NavigationPage) A(NavigationPage) A(NestedTabbedPage) A(Outer Tab A) A(Tab A) ";
             Assert.That(App.PageLog, Is.EqualTo(expectedLog));
         }
 

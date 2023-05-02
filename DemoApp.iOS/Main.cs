@@ -1,12 +1,8 @@
+﻿using DemoApp.iOS;
 using UIKit;
 
-namespace FormsTest.iOS
-{
-    public class Application
-    {
-        static void Main(string[] args)
-        {
-            UIApplication.Main(args, null, nameof(AppDelegate));
-        }
-    }
-}
+// This is the main entry point of the application.
+// If you want to use a different Application Delegate class from "AppDelegate"
+// you can specify it here.
+UIApplication.Main(args, null, typeof(AppDelegate));
+

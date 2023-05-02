@@ -15,7 +15,7 @@ namespace Tests
 
             Launch(new App());
 
-            expectedLog = "A(FlyoutPage) A(NavigationPage) A(Navigation) ";
+            expectedLog = "A(NavigationPage) A(Navigation) A(FlyoutPage) ";
             Assert.That(App.PageLog, Is.EqualTo(expectedLog));
         }
 
@@ -116,7 +116,7 @@ namespace Tests
         [Test]
         public void TestPageAppearingOnAppStart()
         {
-            Assert.That(App.PageLog, Is.EqualTo("A(FlyoutPage) A(NavigationPage) A(Navigation) "));
+            Assert.That(App.PageLog, Is.EqualTo("A(NavigationPage) A(Navigation) A(FlyoutPage) "));
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace Tests
             Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(Navigation ^) "));
 
             Tap("PopModalAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation ^) A(FlyoutPage) A(NavigationPage) A(Navigation) "));
+            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation ^) A(NavigationPage) A(Navigation) A(FlyoutPage) "));
         }
 
         [Test]
@@ -191,7 +191,7 @@ namespace Tests
             Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation >) A(Navigation) "));
 
             Tap("Toggle Flyout MainPage");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) A(FlyoutPage) A(NavigationPage) A(Navigation) "));
+            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Navigation) A(FlyoutPage) "));
 
             OpenMenu("Elements");
             ShouldSee("Element demo");
