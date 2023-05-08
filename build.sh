@@ -36,7 +36,7 @@ dotnet restore QuickTest.sln || exit 1
 dotnet build --configuration Release QuickTest/QuickTest.csproj || exit 1
 dotnet build --configuration Release Tests/Tests.csproj || exit 1
 
-dotnet test Tests/Tests.csproj
+dotnet test --logger "junit;LogFilePath=TestResult.xml"
 
 createTag
 
