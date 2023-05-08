@@ -31,7 +31,7 @@ function createTag {
   git push --tags || exit 1
 }
 
-nuget restore QuickTest.sln || exit 1
+dotnet restore QuickTest.sln || exit 1
 
 dotnet build --configuration Release QuickTest/QuickTest.csproj || exit 1
 dotnet build --configuration Release Tests/Tests.csproj || exit 1
