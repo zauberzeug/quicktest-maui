@@ -36,10 +36,7 @@ dotnet restore QuickTest.sln || exit 1
 dotnet build --configuration Release QuickTest/QuickTest.csproj || exit 1
 dotnet build --configuration Release Tests/Tests.csproj || exit 1
 
-pushd Tests && nuget install Nunit.Runners && popd
-export MONO_IOMAP=all # this fixes slash, backslash path separator problems within nunit test runner
-NUNIT=(Tests/NUnit.ConsoleRunner.*/tools/nunit3-console.exe)
-mono ${NUNIT[0]} --config=Release "Tests/Tests.csproj" || exit 1
+dotnet test Tests/Tests.csproj
 
 createTag
 
