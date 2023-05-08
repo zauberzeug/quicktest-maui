@@ -47,4 +47,4 @@ if [[ $SKIP_DEPLOYMENT == True ]]; then
   exit 0
 fi
 
-publishNuGet Zauberzeug.QuickTest.Maui$VERSION.nupkg
+publishNuGet Zauberzeug.QuickTest.Maui.$VERSION.nupkg
