@@ -43,11 +43,11 @@ mono ${NUNIT[0]} --config=Release "Tests/Tests.csproj" || exit 1
 
 createTag
 
-packNuGet Xamarin.Forms.QuickTest.nuspec
+packNuGet Zauberzeug.QuickTest.Maui.nuspec
 
 if [[ $SKIP_DEPLOYMENT == True ]]; then
   echo "Skipping deployment"
   exit 0
 fi
 
-publishNuGet Xamarin.Forms.QuickTest.$VERSION.nupkg
+publishNuGet Zauberzeug.QuickTest.Maui$VERSION.nupkg

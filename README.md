@@ -1,6 +1,6 @@
 # Xamarin.Quicktest
 
-Quicktest provides infrastructure to write acceptance and integration tests with NUnit for Xamarin.Forms apps. With a little care (mocking HTTP, etc) you can achieve a very fast executing set of tests to ensure high level requirements are working as expected.
+Quicktest provides infrastructure to write acceptance and integration tests with NUnit for .NET Maui apps. With a little care (mocking HTTP, etc) you can achieve a very fast executing set of tests to ensure high level requirements are working as expected.
 
 ```csharp
 

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+      <id>Zauberzeug.QuickTest.Maui</id>
+      <version>1.0</version>
+      <authors>Zauberzeug GmbH</authors>
+      <owners>Zaubzerzeug GmbH</owners>
+      <projectUrl>https://github.com/zauberzeug/quicktest-maui</projectUrl>
+      <licenseUrl>https://github.com/zauberzeug/quicktest-maui/blob/master/LICENSE</licenseUrl>
+      <description>Library to write NUnit Integration Tests for .NET Maui</description>
+      <releaseNotes>Release notes can be found under https://github.com/zauberzeug/quicktest-maui/releases</releaseNotes>
+      <copyright>Zauberzeug GmbH Copyright 2023</copyright>
+      <dependencies>
+         <group>
+             <dependency id="NUnit" version="3.13.3" />
+         </group>
+     </dependencies>
+  </metadata>
+    <files>
+        <file src="QuickTest/bin/Release/net6.0/QuickTest.dll" target="lib/net6.0" />
+        <file src="QuickTest/bin/Release/net6.0/QuickTest.pdb" target="lib/net6.0" />
+    </files>
+</package>
