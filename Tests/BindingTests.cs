@@ -11,7 +11,7 @@ namespace Tests
         {
             base.SetUp();
             Launch(new App());
-
+            ShouldSee("This is a test for the CI");
             OpenMenu("Binding");
         }
 
