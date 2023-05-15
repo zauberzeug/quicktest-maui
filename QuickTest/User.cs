@@ -17,6 +17,8 @@ namespace QuickTest
         public User(Application app)
         {
             this.app = app;
+            (app as IApplication).CreateWindow(null);
+
             app.Invoke("OnStart");
 
             MessagingCenter.Subscribe<Page, AlertArguments>(this, Page.AlertSignalName, (page, alert) => {
@@ -28,8 +30,6 @@ namespace QuickTest
             });
 
             WireNavigation();
-
-            (app as IApplication).CreateWindow(null);
         }
 
         public NavigationPage CurrentNavigationPage {
