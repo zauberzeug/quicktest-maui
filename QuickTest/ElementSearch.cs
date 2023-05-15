@@ -151,7 +151,7 @@ namespace QuickTest
                 return;
 
             foreach (var info in result.Where(i => i.InvokeTap == null))
-                info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement));
+                info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement, null));
         }
 
         public static List<ElementInfo> Find(this ListView listView, Predicate<Element> predicate, Predicate<Element> containerPredicate)
