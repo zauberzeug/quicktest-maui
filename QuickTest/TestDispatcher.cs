@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace QuickTest
 {
-    class TestDispatcher : IDispatcher
+    public class TestDispatcher : IDispatcher
     {
         public bool IsDispatchRequired => false;
 
@@ -27,7 +27,7 @@ namespace QuickTest
         }
     }
 
-    class TestDispatcherProvider : IDispatcherProvider
+    public class TestDispatcherProvider : IDispatcherProvider
     {
         IDispatcher dispatcher;
 
