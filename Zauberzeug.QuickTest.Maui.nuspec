@@ -17,7 +17,7 @@
      </dependencies>
   </metadata>
     <files>
-        <file src="QuickTest/bin/Release/net6.0/QuickTest.dll" target="lib/net6.0" />
-        <file src="QuickTest/bin/Release/net6.0/QuickTest.pdb" target="lib/net6.0" />
+        <file src="QuickTest/bin/Release/net7.0/QuickTest.dll" target="lib/net7.0" />
+        <file src="QuickTest/bin/Release/net7.0/QuickTest.pdb" target="lib/net7.0" />
     </files>
 </package>
