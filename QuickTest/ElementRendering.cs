@@ -47,6 +47,7 @@ namespace QuickTest
             result += (element as ScrollView)?.Content.Render();
             result += string.Join("", (element as Layout)?.Children.Select(c => (c as Element)?.Render() ?? "") ?? new[] { "" });
             result += (element as ListView)?.Render();
+            result += (element as Border)?.Content.Render();
 
             result += (element as Label)?.FormattedText?.ToString() ?? (element as Label)?.Text;
             result += (element as Button)?.Text;
