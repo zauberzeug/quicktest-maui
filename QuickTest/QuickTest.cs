@@ -42,6 +42,7 @@ namespace QuickTest
         {
             Print();
             DispatcherProvider.SetCurrent(null);
+            ResetApp();
         }
 
         public void Launch(T app)
@@ -53,6 +54,7 @@ namespace QuickTest
         public void ResetApp()
         {
             App = null;
+            user?.Cleanup();
             User = null;
         }
 
