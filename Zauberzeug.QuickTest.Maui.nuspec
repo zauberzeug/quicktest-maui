@@ -12,7 +12,7 @@
       <copyright>Zauberzeug GmbH Copyright 2023</copyright>
       <dependencies>
          <group>
-             <dependency id="NUnit" version="3.13.3" />
+             <dependency id="NUnit" version="3.14.0" />
          </group>
      </dependencies>
   </metadata>
