@@ -55,7 +55,7 @@ namespace QuickTest
         {
             return
                 (element as Page)?.Title == text ||
-                (element as Button)?.Text == text ||
+                (element is Button button && (button.Text == text || (button.ImageSource as FontImageSource)?.Glyph == text)) ||
                 (element as Label)?.Text == text ||
                 (element as Label)?.FormattedText?.ToString() == text ||
                 (element as Editor)?.Text == text ||

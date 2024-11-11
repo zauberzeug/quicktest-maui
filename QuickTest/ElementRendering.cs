@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
@@ -48,9 +49,8 @@ namespace QuickTest
             result += string.Join("", (element as Layout)?.Children.Select(c => (c as Element)?.Render() ?? "") ?? new[] { "" });
             result += (element as ListView)?.Render();
             result += (element as Border)?.Content.Render();
-
             result += (element as Label)?.FormattedText?.ToString() ?? (element as Label)?.Text;
-            result += (element as Button)?.Text;
+            result += (element as Button)?.Render();
             result += (element as Entry)?.Text;
             result += (element as Editor)?.Text;
             result += (element as SearchBar)?.Text;
@@ -117,6 +117,16 @@ namespace QuickTest
             result += Render(listView.Footer);
 
             return result;
+        }
+
+        static string Render(this Button button)
+        {
+            var texts = new List<string>();
+            if (button.ImageSource is FontImageSource fontImageSource && !string.IsNullOrEmpty(fontImageSource.Glyph))
+                texts.Add(fontImageSource.Glyph);
+            if (!string.IsNullOrEmpty(button.Text))
+                texts.Add(button.Text);
+            return string.Join("|", texts);
         }
 
         static string Render(CellGroup cellGroup)

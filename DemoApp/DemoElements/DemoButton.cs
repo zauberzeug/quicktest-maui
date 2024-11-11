@@ -15,5 +15,13 @@ namespace DemoApp
 
             Command = new Command(o => App.ShowMessage("Success", text + " tapped"));
         }
+
+        public DemoButton WithFontImageSource(string glyph)
+        {
+            ImageSource = new FontImageSource {
+                Glyph = glyph
+            };
+            return this;
+        }
     }
 }

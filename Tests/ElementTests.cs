@@ -40,6 +40,14 @@ namespace Tests
         }
 
         [Test]
+        public void TestButton_FontImageSource()
+        {
+            ShouldSee("Button with icon");
+            Tap("glyph");
+            ShouldSee("Button with icon tapped");
+        }
+
+        [Test]
         public void TestNestedLabel()
         {
             Tap("label in tap-able layout");

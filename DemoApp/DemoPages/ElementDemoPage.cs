@@ -31,6 +31,7 @@ namespace DemoApp
                     Children = {
                         searchbar,
                         new DemoButton("Button"),
+                        new DemoButton("Button with icon").WithFontImageSource("glyph"),
                         new DemoLabel("Label").WithGestureRecognizer(),
                         CreateFormattedLabel(),
                         new DemoStack(),
