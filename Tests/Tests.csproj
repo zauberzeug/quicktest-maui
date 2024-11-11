@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UseMaui>true</UseMaui>
     <RootNamespace>Tests</RootNamespace>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -16,8 +16,9 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="NunitXml.TestLogger" Version="3.0.131" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\QuickTest\QuickTest.csproj" />
   </ItemGroup>
