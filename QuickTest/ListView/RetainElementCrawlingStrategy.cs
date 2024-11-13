@@ -11,7 +11,7 @@ namespace QuickTest
         public List<CellGroup> GetCellGroups(ListView listView)
         {
             if (listView.IsGroupingEnabled)
-                return listView.TemplatedItems.Cast<ListViewItemsList>().Select(t => GetCellGroup(t)).ToList();
+                return listView.GetTemplatedItemsOfGroups().Select(t => GetCellGroup(t)).ToList();
             else
                 return new List<CellGroup> { GetCellGroup(listView.TemplatedItems) };
         }

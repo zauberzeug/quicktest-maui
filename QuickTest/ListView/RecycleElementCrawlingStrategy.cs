@@ -16,7 +16,7 @@ namespace QuickTest
             var cacheProvider = cacheProviders.GetValue(listView, (l) => new CellCacheProvider(l));
             cacheProvider.RestartReuse();
             if (listView.IsGroupingEnabled)
-                return listView.TemplatedItems.Cast<ListViewItemsList>().Select(t => GetCellGroup(t, cacheProvider)).ToList();
+                return listView.GetTemplatedItemsOfGroups().Select(t => GetCellGroup(t, cacheProvider)).ToList();
             else
                 return new List<CellGroup> { GetCellGroup(listView.TemplatedItems, cacheProvider) };
         }

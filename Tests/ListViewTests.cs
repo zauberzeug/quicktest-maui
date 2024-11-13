@@ -64,9 +64,11 @@ namespace Tests
             Tap("DemoListViewWithGroups");
 
             ShouldSee("Group 4");
+            ShouldSee("A4", "B4", "C4");
             TapCell("A4");
 
             ShouldSee("Group 5");
+            ShouldSee("A5", "B5", "C5");
             TapCell("A5");
         }
 
@@ -76,9 +78,11 @@ namespace Tests
             Tap("DemoListViewWithGroupsAndHeaderTemplate");
 
             ShouldSee("Group 6");
+            ShouldSee("A6", "B6", "C6");
             TapCell("A6");
 
             ShouldSee("Group 7");
+            ShouldSee("A7", "B7", "C7");
             TapCell("A7");
         }
 
