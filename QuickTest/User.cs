@@ -21,6 +21,7 @@ namespace QuickTest
 
             app.Invoke("OnStart");
 
+#pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
             MessagingCenter.Subscribe<Page, AlertArguments>(this, Page.AlertSignalName, (page, alert) => {
                 popups.Add(new AlertPopup(alert));
             });
@@ -28,14 +29,17 @@ namespace QuickTest
             MessagingCenter.Subscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName, (page, actionSheet) => {
                 popups.Add(new ActionSheetPopup(actionSheet));
             });
+#pragma warning restore CS0618 // Type or member is obsolete
 
             WireNavigation();
         }
 
         public void Cleanup()
         {
+#pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
             MessagingCenter.Unsubscribe<Page, AlertArguments>(this, Page.AlertSignalName);
             MessagingCenter.Unsubscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         public NavigationPage CurrentNavigationPage {
