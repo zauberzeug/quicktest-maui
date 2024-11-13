@@ -32,7 +32,6 @@ namespace QuickTest
         [SetUp]
         protected virtual void SetUp()
         {
-            // Use null as runtimePlatform to be able to set all caching strategies in ListView
             DispatcherProvider.SetCurrent(new TestDispatcherProvider());
 #pragma warning disable CS0612 // Type or member is obsolete (MAUI currently still uses ISystemResourcesProvider internally)
             DependencyService.Register<ISystemResourcesProvider, TestSystemResourcesProvider>();
