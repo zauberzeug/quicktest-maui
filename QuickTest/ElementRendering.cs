@@ -48,6 +48,7 @@ namespace QuickTest
             result += (element as ScrollView)?.Content.Render();
             result += string.Join("", (element as Layout)?.Children.Select(c => (c as Element)?.Render() ?? "") ?? new[] { "" });
             result += (element as ListView)?.Render();
+            result += (element as CollectionView)?.Render();
             result += (element as Border)?.Content.Render();
             result += (element as Label)?.FormattedText?.ToString() ?? (element as Label)?.Text;
             result += (element as Button)?.Render();
@@ -115,6 +116,35 @@ namespace QuickTest
 
             result.TrimEnd('\n');
             result += Render(listView.Footer);
+
+            return result;
+        }
+
+        public static string Render(this CollectionView collectionView)
+        {
+            var result = "";
+            if (collectionView.ItemsSource == null)
+                return result;
+
+            result += Render(collectionView.Header);
+
+            foreach (var item in collectionView.ItemsSource) {
+                var template = collectionView.ItemTemplate;
+                if (template is DataTemplateSelector selector)
+                    template = selector.SelectTemplate(item, collectionView);
+
+                if (template != null) {
+                    var content = template.CreateContent() as View;
+                    if (content != null) {
+                        content.BindingContext = item;
+                        result += Render(content);
+                    }
+                }
+            }
+
+            result += "\n"; // TODO: check if this can be removed (or why the element before the last does not have a newline)
+
+            result += Render(collectionView.Footer);
 
             return result;
         }

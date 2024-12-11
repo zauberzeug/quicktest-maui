@@ -20,6 +20,7 @@ namespace DemoApp
                         CreateListViewButton(ListViewCachingStrategy.RetainElement),
                         CreateListViewButton(ListViewCachingStrategy.RecycleElement),
                         CreateListViewButton(ListViewCachingStrategy.RecycleElementAndDataTemplate),
+                        CreateMenuButton("CollectionView", () => new CollectionViewDemoPage()),
                         CreateMenuButton("Binding", () => new BindingDemoPage()),
                         CreateMenuButton("Popups", () => new PopupDemoPage()),
                         CreateMenuButton("TabbedPage", () => new TabbedPageDemoPage()),

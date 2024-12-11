@@ -10,6 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\CollectionViewDemoPage.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionViewWithGrid.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionViewWithLabel.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionViewWithTapAction.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionWithDataSelector.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\SimpleDataTemplateSelector.cs"/>
     <Compile Include="$(MSBuildThisFileDirectory)MenuPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoGrid.cs" />

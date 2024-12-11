@@ -37,6 +37,7 @@ namespace QuickTest
             result.AddRange((element as Border)?.Content.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ListView)?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ViewCell)?.View?.Find(predicate, containerPredicate) ?? empty);
+            result.AddRange((element as CollectionView)?.Find(predicate, containerPredicate) ?? empty);
 
             AddTapGestureRecognizers(element, result);
 
@@ -152,6 +153,39 @@ namespace QuickTest
 
             foreach (var info in result.Where(i => i.InvokeTap == null))
                 info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement, null));
+        }
+
+        public static List<ElementInfo> Find(this CollectionView collectionView, Predicate<Element> predicate, Predicate<Element> containerPredicate)
+        {
+            var result = new List<ElementInfo>();
+
+            result.AddRange(Find(collectionView.Header, predicate, containerPredicate));
+            result.AddRange(Find(collectionView.Footer, predicate, containerPredicate));
+
+            if (collectionView.ItemsSource == null)
+                return result;
+
+            foreach (var item in collectionView.ItemsSource) {
+                var template = collectionView.ItemTemplate;
+                if (template is DataTemplateSelector selector)
+                    template = selector.SelectTemplate(item, collectionView);
+
+                if (template != null) {
+                    var content = template.CreateContent() as View;
+                    if (content != null) {
+                        content.BindingContext = item;
+                        var infos = content.Find(predicate, containerPredicate);
+                        foreach (var info in infos) {
+                            if (info.InvokeTap == null)
+                                info.InvokeTap = () => { collectionView.SelectedItem = item; };
+                        }
+
+                        result.AddRange(infos);
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static List<ElementInfo> Find(this ListView listView, Predicate<Element> predicate, Predicate<Element> containerPredicate)
