@@ -34,7 +34,7 @@ namespace QuickTest
             result.AddRange((element as ContentView)?.Content.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ScrollView)?.Content.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as Layout)?.Children.ToList().SelectMany(child => (child as Element)?.Find(predicate, containerPredicate) ?? empty) ?? empty);
-            result.AddRange((element as Border)?.Content.Find(predicate, containerPredicate) ?? empty);
+            result.AddRange((element as Border)?.Content?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ListView)?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as ViewCell)?.View?.Find(predicate, containerPredicate) ?? empty);
             result.AddRange((element as CollectionView)?.Find(predicate, containerPredicate) ?? empty);
