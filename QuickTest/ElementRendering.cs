@@ -128,7 +128,8 @@ namespace QuickTest
 
             result += Render(collectionView.Header);
 
-            foreach (var item in collectionView.ItemsSource) {
+            string RenderItem(object item)
+            {
                 var template = collectionView.ItemTemplate;
                 if (template is DataTemplateSelector selector)
                     template = selector.SelectTemplate(item, collectionView);
@@ -137,11 +138,32 @@ namespace QuickTest
                     var content = template.CreateContent() as View;
                     if (content != null) {
                         content.BindingContext = item;
-                        result += Render(content);
+                        return Render(content);
+                    }
+                }
+
+                return "";
+            }
+
+            if (collectionView.IsGrouped) {
+                foreach (var group in collectionView.ItemsSource) {
+                    var groupHeader = collectionView.GroupHeaderTemplate?.CreateContent() as View;
+                    if (groupHeader != null) {
+                        groupHeader.BindingContext = group;
+                        result += Render(groupHeader);
+                    }
+
+                    var items = (group as IEnumerable<object>)?.ToList();
+                    if (items != null) {
+                        foreach (var item in items)
+                            result += RenderItem(item);
                     }
                 }
             }
-
+            else {
+                foreach (var item in collectionView.ItemsSource)
+                    result += RenderItem(item);
+            }
             result += "\n"; // TODO: check if this can be removed (or why the element before the last does not have a newline)
 
             result += Render(collectionView.Footer);

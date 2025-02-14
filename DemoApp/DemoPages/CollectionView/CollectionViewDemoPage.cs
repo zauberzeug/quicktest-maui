@@ -18,6 +18,7 @@ public class CollectionViewDemoPage : ContentPage
                 }),
                 CreateSubpageButton(new DemoCollectionViewWithGrid()),
                 CreateSubpageButton(new DemoCollectionViewWithTapAction()),
+                CreateSubpageButton(new DemoCollectionViewGrouped()),
             },
         };
     }
