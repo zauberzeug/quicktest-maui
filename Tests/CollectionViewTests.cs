@@ -17,6 +17,15 @@ public class CollectionViewTests : QuickTest<App>
     }
 
     [Test]
+    public void TestGroup()
+    {
+        Tap("DemoCollectionViewGrouped");
+        ShouldSee("Mammals");
+        ShouldSee("Reptiles");
+        ShouldSee("Crocodile");
+    }
+
+    [Test]
     public void TestLabel()
     {
         Tap("DemoCollectionViewWithLabel");

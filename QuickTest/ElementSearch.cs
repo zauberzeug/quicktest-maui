@@ -165,7 +165,8 @@ namespace QuickTest
             if (collectionView.ItemsSource == null)
                 return result;
 
-            foreach (var item in collectionView.ItemsSource) {
+            List<ElementInfo> RenderItem(object item)
+            {
                 var template = collectionView.ItemTemplate;
                 if (template is DataTemplateSelector selector)
                     template = selector.SelectTemplate(item, collectionView);
@@ -180,9 +181,32 @@ namespace QuickTest
                                 info.InvokeTap = () => { collectionView.SelectedItem = item; };
                         }
 
-                        result.AddRange(infos);
+                        return infos;
                     }
                 }
+
+                return [];
+            }
+
+            if (collectionView.IsGrouped) {
+                var groups = collectionView.ItemsSource.Cast<object>().ToList();
+                foreach (var group in groups) {
+                    var groupHeader = collectionView.GroupHeaderTemplate?.CreateContent() as View;
+                    if (groupHeader != null) {
+                        groupHeader.BindingContext = group;
+                        result.AddRange(groupHeader.Find(predicate, containerPredicate));
+                    }
+
+                    var items = (group as IEnumerable<object>)?.ToList();
+                    if (items != null) {
+                        foreach (var item in items)
+                            result.AddRange(RenderItem(item));
+                    }
+                }
+            }
+            else {
+                foreach (var item in collectionView.ItemsSource)
+                    result.AddRange(RenderItem(item));
             }
 
             return result;
