@@ -151,6 +151,17 @@ namespace QuickTest
             ShouldSee(text.ToString(), count);
         }
 
+        public virtual void ShouldBeOn(string automationId)
+        {
+            try {
+                User.ShouldBeOn(automationId);
+            }
+            catch {
+                Console.WriteLine(Render());
+                throw;
+            }
+        }
+
         public virtual void ShouldNotSee(params string[] texts)
         {
             var list = new List<string>(texts);

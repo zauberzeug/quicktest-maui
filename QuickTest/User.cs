@@ -248,5 +248,40 @@ namespace QuickTest
 
             return page;
         }
+
+        public void ShouldBeOn(string automationId)
+        {
+            var currentPage = CurrentPage;
+            var pageWithAutomationId = FindPageWithAutomationId(currentPage, automationId);
+
+            Assert.That(pageWithAutomationId, Is.Not.Null, $"User is not on a page with AutomationId '{automationId}'");
+        }
+
+        Page FindPageWithAutomationId(Page page, string automationId)
+        {
+            if (page.AutomationId == automationId)
+                return page;
+
+            if (page is FlyoutPage flyoutPage) {
+                var flyoutResult = FindPageWithAutomationId(flyoutPage.Flyout, automationId);
+                if (flyoutResult != null)
+                    return flyoutResult;
+
+                var detailResult = FindPageWithAutomationId(flyoutPage.Detail, automationId);
+                if (detailResult != null)
+                    return detailResult;
+            }
+
+            if (page is IPageContainer<Page> pageContainer) {
+                var currentPage = pageContainer.CurrentPage;
+                if (currentPage != null) {
+                    var containerResult = FindPageWithAutomationId(currentPage, automationId);
+                    if (containerResult != null)
+                        return containerResult;
+                }
+            }
+
+            return null;
+        }
     }
 }
