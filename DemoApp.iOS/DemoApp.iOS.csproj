@@ -1,41 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-ios</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>false</ImplicitUsings>
-    <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
-    <UseMaui>true</UseMaui>
+	<TargetFramework>net9.0-ios</TargetFramework>
+	<OutputType>Exe</OutputType>
+	<Nullable>disable</Nullable>
+	<ImplicitUsings>false</ImplicitUsings>
+	<SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
+	<UseMaui>true</UseMaui>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <CreatePackage>false</CreatePackage>
+	<CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <CreatePackage>false</CreatePackage>
+	<CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <ItemGroup>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\one%402x.png">
-      <Link>Resources\one%402x.png</Link>
-    </BundleResource>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\one%403x.png">
-      <Link>Resources\one%403x.png</Link>
-    </BundleResource>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\two%402x.png">
-      <Link>Resources\two%402x.png</Link>
-    </BundleResource>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\two%403x.png">
-      <Link>Resources\two%403x.png</Link>
-    </BundleResource>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\menu%402x.png">
-      <Link>Resources\menu%402x.png</Link>
-    </BundleResource>
-    <BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\menu%403x.png">
-      <Link>Resources\menu%403x.png</Link>
-    </BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\one%402x.png">
+	  <Link>Resources\one%402x.png</Link>
+	</BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\one%403x.png">
+	  <Link>Resources\one%403x.png</Link>
+	</BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\two%402x.png">
+	  <Link>Resources\two%402x.png</Link>
+	</BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\two%403x.png">
+	  <Link>Resources\two%403x.png</Link>
+	</BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\menu%402x.png">
+	  <Link>Resources\menu%402x.png</Link>
+	</BundleResource>
+	<BundleResource Condition="'$(_ResourcePrefix)' != ''" Update="Resources\menu%403x.png">
+	  <Link>Resources\menu%403x.png</Link>
+	</BundleResource>
   </ItemGroup>
   <Import Project="..\DemoApp\DemoApp.projitems" Label="Shared" Condition="Exists('..\DemoApp\DemoApp.projitems')" />
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
+	<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.30" />
+	<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.30" />
   </ItemGroup>
 </Project>
