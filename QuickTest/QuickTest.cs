@@ -151,7 +151,7 @@ namespace QuickTest
             ShouldSee(text.ToString(), count);
         }
 
-        public virtual void ShouldBeOn(string automationId = null, string title = null, Type type = null, Predicate<Page> predicate = null)
+        public virtual bool ShouldBeOn(string automationId = null, string title = null, Type type = null, Predicate<Page> predicate = null)
         {
             Predicate<Page> combinedPredicate = p => {
                 if (automationId != null && p.AutomationId != automationId)
@@ -166,6 +166,7 @@ namespace QuickTest
             };
 
             Assert.True(User.ShouldBeOn(combinedPredicate), $"User should be on Page with specified criteria.\n{User?.Render()}");
+            return true;
         }
 
         public virtual void ShouldNotSee(params string[] texts)
