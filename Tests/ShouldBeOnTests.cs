@@ -15,15 +15,6 @@ public class ShouldBeOnTests : QuickTest<App>
     }
 
     [Test]
-    public void ShouldBeOn_PageWithAutomationId()
-    {
-        var page = new ContentPage { AutomationId = "TestPage" };
-        App.MainPage = new NavigationPage(page);
-
-        ShouldBeOn("TestPage");
-    }
-
-    [Test]
     public void ShouldBeOn_FlyoutPageWithAutomationId()
     {
         var flyoutPage = new FlyoutPage {
@@ -52,11 +43,34 @@ public class ShouldBeOnTests : QuickTest<App>
     }
 
     [Test]
+    public void ShouldBeOn_Examples()
+    {
+        var page = new ShouldBeOnTestPage {
+            Title = "some_title",
+            AutomationId = "some_automation_id",
+        };
+        App.MainPage = new NavigationPage(page);
+
+        ShouldBeOn(title: "some_title");
+        ShouldBeOn(automationId: "some_automation_id");
+        ShouldBeOn(title: "some_title", automationId: "some_automation_id");
+        ShouldBeOn(type: typeof(ShouldBeOnTestPage));
+        ShouldBeOn(predicate: (p) => p.Title == "some_title");
+    }
+
+    [Test]
     public void ShouldBeOn_PageNotFound()
     {
         var page = new ContentPage { AutomationId = "TestPage" };
         App.MainPage = new NavigationPage(page);
 
         Assert.Throws<AssertionException>(() => ShouldBeOn("NonExistentPage"));
+    }
+}
+
+class ShouldBeOnTestPage : ContentPage
+{
+    public ShouldBeOnTestPage()
+    {
     }
 }

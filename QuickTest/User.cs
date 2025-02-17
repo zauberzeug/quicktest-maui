@@ -232,7 +232,6 @@ namespace QuickTest
             return elements;
         }
 
-
         Page FindInnermostPage(Page page)
         {
             if (page is FlyoutPage flyoutPage) {
@@ -249,25 +248,25 @@ namespace QuickTest
             return page;
         }
 
-        public void ShouldBeOn(string automationId)
+        public bool ShouldBeOn(Predicate<Page> predicate)
         {
             var currentPage = CurrentPage;
-            var pageWithAutomationId = FindPageWithAutomationId(currentPage, automationId);
+            var pageMatchingPredicate = FindPage(currentPage, predicate);
 
-            Assert.That(pageWithAutomationId, Is.Not.Null, $"User is not on a page with AutomationId '{automationId}'");
+            return pageMatchingPredicate != null;
         }
 
-        Page FindPageWithAutomationId(Page page, string automationId)
+        private Page FindPage(Page page, Predicate<Page> predicate)
         {
-            if (page.AutomationId == automationId)
+            if (predicate(page))
                 return page;
 
             if (page is FlyoutPage flyoutPage) {
-                var flyoutResult = FindPageWithAutomationId(flyoutPage.Flyout, automationId);
+                var flyoutResult = FindPage(flyoutPage.Flyout, predicate);
                 if (flyoutResult != null)
                     return flyoutResult;
 
-                var detailResult = FindPageWithAutomationId(flyoutPage.Detail, automationId);
+                var detailResult = FindPage(flyoutPage.Detail, predicate);
                 if (detailResult != null)
                     return detailResult;
             }
@@ -275,7 +274,7 @@ namespace QuickTest
             if (page is IPageContainer<Page> pageContainer) {
                 var currentPage = pageContainer.CurrentPage;
                 if (currentPage != null) {
-                    var containerResult = FindPageWithAutomationId(currentPage, automationId);
+                    var containerResult = FindPage(currentPage, predicate);
                     if (containerResult != null)
                         return containerResult;
                 }
