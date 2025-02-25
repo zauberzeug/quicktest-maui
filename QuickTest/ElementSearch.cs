@@ -205,7 +205,7 @@ namespace QuickTest
                 }
             }
             else {
-                foreach (var item in collectionView.ItemsSource)
+                foreach (var item in collectionView.ItemsSource.Cast<object>().ToList())
                     result.AddRange(RenderItem(item));
             }
 

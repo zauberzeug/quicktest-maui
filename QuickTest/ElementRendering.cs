@@ -146,7 +146,7 @@ namespace QuickTest
             }
 
             if (collectionView.IsGrouped) {
-                foreach (var group in collectionView.ItemsSource) {
+                foreach (var group in collectionView.ItemsSource.Cast<object>().ToList()) {
                     var groupHeader = collectionView.GroupHeaderTemplate?.CreateContent() as View;
                     if (groupHeader != null) {
                         groupHeader.BindingContext = group;
@@ -161,7 +161,7 @@ namespace QuickTest
                 }
             }
             else {
-                foreach (var item in collectionView.ItemsSource)
+                foreach (var item in collectionView.ItemsSource.Cast<object>().ToList())
                     result += RenderItem(item);
             }
             result += "\n"; // TODO: check if this can be removed (or why the element before the last does not have a newline)
