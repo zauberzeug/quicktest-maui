@@ -193,6 +193,10 @@ namespace Tests
 
             Tap("Toggle Flyout MainPage");
             VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Navigation) A(FlyoutPage) ");
+            
+            Tap("Show Alert");
+            ShouldSee("Alert title", "Alert message", "Ok");
+            Tap("Ok");
 
             OpenMenu("Elements");
             ShouldSee("Element demo");
