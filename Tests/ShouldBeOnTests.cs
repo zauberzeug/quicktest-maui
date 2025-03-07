@@ -24,7 +24,7 @@ public class ShouldBeOnTests : QuickTest<App>
             },
             Detail = new NavigationPage(new ContentPage { AutomationId = "DetailPage", })
         };
-        App.MainPage = flyoutPage;
+        App.Windows[0].Page = flyoutPage;
 
         flyoutPage.IsPresented = true;
         ShouldBeOn("FlyoutPage");
@@ -36,8 +36,8 @@ public class ShouldBeOnTests : QuickTest<App>
     public void ShouldBeOn_ModalPageWithAutomationId()
     {
         var modalPage = new ContentPage { AutomationId = "ModalPage" };
-        App.MainPage = new NavigationPage(new ContentPage());
-        App.MainPage.Navigation.PushModalAsync(modalPage);
+        App.Windows[0].Page = new NavigationPage(new ContentPage());
+        App.Windows[0].Page.Navigation.PushModalAsync(modalPage);
 
         ShouldBeOn("ModalPage");
     }
@@ -49,7 +49,7 @@ public class ShouldBeOnTests : QuickTest<App>
             Title = "some_title",
             AutomationId = "some_automation_id",
         };
-        App.MainPage = new NavigationPage(page);
+        App.Windows[0].Page = new NavigationPage(page);
 
         ShouldBeOn(title: "some_title");
         ShouldBeOn(automationId: "some_automation_id");
@@ -62,7 +62,7 @@ public class ShouldBeOnTests : QuickTest<App>
     public void ShouldBeOn_PageNotFound()
     {
         var page = new ContentPage { AutomationId = "TestPage" };
-        App.MainPage = new NavigationPage(page);
+        App.Windows[0].Page = new NavigationPage(page);
 
         Assert.Throws<AssertionException>(() => ShouldBeOn("NonExistentPage"));
     }

@@ -34,6 +34,8 @@ namespace QuickTest
             WireNavigation();
         }
 
+        Page WindowPage => app.Windows[0].Page;
+
         public void Cleanup()
         {
 #pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
@@ -44,17 +46,17 @@ namespace QuickTest
 
         public NavigationPage CurrentNavigationPage {
             get {
-                var modalNavigationPage = app.MainPage.Navigation.ModalStack.LastOrDefault() as NavigationPage;
+                var modalNavigationPage = WindowPage.Navigation.ModalStack.LastOrDefault() as NavigationPage;
                 if (modalNavigationPage != null)
                     return modalNavigationPage;
-                return (app.MainPage as NavigationPage)
-                ?? (app.MainPage as FlyoutPage).Detail as NavigationPage;
+                return (WindowPage as NavigationPage)
+                ?? (WindowPage as FlyoutPage).Detail as NavigationPage;
             }
         }
 
         public Page CurrentPage {
             get {
-                var outermostPage = app.MainPage.Navigation.ModalStack.LastOrDefault() ?? app.MainPage;
+                var outermostPage = WindowPage.Navigation.ModalStack.LastOrDefault() ?? WindowPage;
                 var currentPage = FindInnermostPage(outermostPage);
 
                 if (currentPage == null)
@@ -186,17 +188,17 @@ namespace QuickTest
 
         public void OpenMenu()
         {
-            (app.MainPage as FlyoutPage).IsPresented = true;
+            (WindowPage as FlyoutPage).IsPresented = true;
         }
 
         public void CloseMenu()
         {
-            (app.MainPage as FlyoutPage).IsPresented = false;
+            (WindowPage as FlyoutPage).IsPresented = false;
         }
 
         public void GoBack()
         {
-            var modalPage = app.MainPage.Navigation.ModalStack.LastOrDefault();
+            var modalPage = WindowPage.Navigation.ModalStack.LastOrDefault();
             if (modalPage != null) {
                 // Xamarin.Forms expects a synchronization context when popping a page from the modal stack via back button press
                 try {
@@ -206,7 +208,7 @@ namespace QuickTest
                     SynchronizationContext.SetSynchronizationContext(null);
                 }
             } else
-                app.MainPage.SendBackButtonPressed();
+                WindowPage.SendBackButtonPressed();
         }
 
         public void Print()

@@ -50,7 +50,7 @@ namespace DemoApp
         {
             return new DemoButton(title) {
                 Command = new Command(o => {
-                    var mainPage = (Application.Current.MainPage as FlyoutPage);
+                    var mainPage = (Application.Current.Windows[0].Page as FlyoutPage);
                     if (withNavigationPage)
                         mainPage.Detail = new NavigationPage(pageCreator.Invoke()).AddPageLog();
                     else

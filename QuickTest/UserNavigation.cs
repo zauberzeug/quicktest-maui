@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Microsoft.Maui;
@@ -9,26 +10,29 @@ namespace QuickTest
     {
         void WireNavigation()
         {
-            app.PropertyChanging += (s, args) => {
-                if (args.PropertyName == nameof(Application.MainPage))
+            // NOTE: QuickTest currently only supports single window apps which do not replace the window after initial launch.
+            var window = app.Windows[0];
+            
+            window.PropertyChanging += (s, args) => {
+                if (args.PropertyName == nameof(Window.Page))
                     HandleMainPageChanging();
             };
-            app.PropertyChanged += (s, args) => {
-                if (args.PropertyName == nameof(Application.MainPage))
+            window.PropertyChanged += (s, args) => {
+                if (args.PropertyName == nameof(Window.Page))
                     HandleMainPageChanged();
             };
 
-            app.ModalPushing += HandleModalPushing;
-            app.ModalPushed += HandleModalPushed;
-            app.ModalPopping += HandleModalPopping;
-            app.ModalPopped += HandleModalPopped;
+            window.ModalPushing += HandleModalPushing;
+            window.ModalPushed += HandleModalPushed;
+            window.ModalPopping += HandleModalPopping;
+            window.ModalPopped += HandleModalPopped;
 
             HandleMainPageChanged();
         }
 
-        void HandleMainPageChanging() => HandlePageDisappearing(app.MainPage);
+        void HandleMainPageChanging() => HandlePageDisappearing(WindowPage);
 
-        void HandleMainPageChanged() => HandlePageAppearing(app.MainPage);
+        void HandleMainPageChanged() => HandlePageAppearing(WindowPage);
 
         void HandleFlyoutPagePropertyChanging(object sender, Microsoft.Maui.Controls.PropertyChangingEventArgs e)
         {
@@ -90,7 +94,7 @@ namespace QuickTest
 
         void HandleModalPopped(object sender, ModalPoppedEventArgs e) => HandlePageAppearing(GetCurrentModalOrMainPage());
 
-        Page GetCurrentModalOrMainPage() => app.MainPage.Navigation.ModalStack.LastOrDefault() ?? app.MainPage;
+        Page GetCurrentModalOrMainPage() => WindowPage.Navigation.ModalStack.LastOrDefault() ?? WindowPage;
 
         void HandlePageAppearing(Page page)
         {

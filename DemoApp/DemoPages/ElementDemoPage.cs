@@ -19,7 +19,7 @@ namespace DemoApp
             };
 
             searchbar.TextChanged += delegate {
-                Application.Current.MainPage.
+                Application.Current.Windows[0].Page.
                            DisplayAlert("SearchBar Content",
                                         searchbar.Text != null ? $"<{searchbar.Text}>" : "null",
                                         "Ok");

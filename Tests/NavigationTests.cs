@@ -1,4 +1,5 @@
 using DemoApp;
+using Microsoft.Maui.Controls;
 using NUnit.Framework;
 using QuickTest;
 
@@ -16,7 +17,7 @@ namespace Tests
             Launch(new App());
 
             expectedLog = "A(NavigationPage) A(Navigation) A(FlyoutPage) ";
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog));
+            VerifyEnabledPagesAndLog(expectedLog);
         }
 
         [Test]
@@ -116,63 +117,63 @@ namespace Tests
         [Test]
         public void TestPageAppearingOnAppStart()
         {
-            Assert.That(App.PageLog, Is.EqualTo("A(NavigationPage) A(Navigation) A(FlyoutPage) "));
+            VerifyEnabledPagesAndLog("A(NavigationPage) A(Navigation) A(FlyoutPage) ");
         }
 
         [Test]
         public void TestPageDisAppearingOnPushPop()
         {
             Tap("PushAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) A(Navigation >) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) A(Navigation >) ");
 
             GoBack();
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation >) A(Navigation) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation >) A(Navigation) ");
         }
 
         [Test]
         public void TestPageDisAppearingOnModalPushPop()
         {
             Tap("PushModalAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(Navigation ^) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(Navigation ^) ");
 
             Tap("PopModalAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation ^) A(NavigationPage) A(Navigation) A(FlyoutPage) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation ^) A(NavigationPage) A(Navigation) A(FlyoutPage) ");
         }
 
         [Test]
         public void TestPageDisAppearingOnMenuChange()
         {
             OpenMenu("Elements");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) ");
 
             OpenMenu("Navigation");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Element demo) D(NavigationPage) A(NavigationPage) A(Navigation) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Element demo) D(NavigationPage) A(NavigationPage) A(Navigation) ");
 
             Tap("PushAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) A(Navigation >) "), "normal navigation should still be possible after menu change");
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) A(Navigation >) ", "normal navigation should still be possible after menu change");
         }
 
         [Test]
         public void TestPopToRootEvent()
         {
             Tap("PushAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) A(Navigation >) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) A(Navigation >) ");
 
             Tap("PopToRootAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation >) A(Navigation) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation >) A(Navigation) ");
         }
 
         [Test]
         public void TestModalPopToRootEvent()
         {
             Tap("PushModalAsync NavigationPage");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(NavigationPage) A(Navigation ^) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(NavigationPage) A(Navigation ^) ");
 
             Tap("PushAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation ^) A(Navigation ^ >) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation ^) A(Navigation ^ >) ");
 
             Tap("PopToRootAsync");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation ^ >) A(Navigation ^) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation ^ >) A(Navigation ^) ");
         }
 
         [Test]
@@ -180,22 +181,22 @@ namespace Tests
         {
             Tap("Toggle Flyout MainPage");
             ShouldSee("Navigation");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(NavigationPage) A(Navigation) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) D(FlyoutPage) A(NavigationPage) A(Navigation) ");
 
             Tap("PushAsync");
             ShouldSee("Navigation >");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) A(Navigation >) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) A(Navigation >) ");
 
             Tap("PopAsync");
             ShouldSee("Navigation");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation >) A(Navigation) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation >) A(Navigation) ");
 
             Tap("Toggle Flyout MainPage");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Navigation) A(FlyoutPage) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Navigation) A(FlyoutPage) ");
 
             OpenMenu("Elements");
             ShouldSee("Element demo");
-            Assert.That(App.PageLog, Is.EqualTo(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) "));
+            VerifyEnabledPagesAndLog(expectedLog += "D(Navigation) D(NavigationPage) A(NavigationPage) A(Element demo) ");
         }
 
         [Test]
@@ -207,6 +208,25 @@ namespace Tests
             Tap("Show Alert");
             ShouldSee("Alert title", "Alert message", "Ok");
             Tap("Ok");
+        }
+
+        void VerifyEnabledPagesAndLog(string log, string message = null)
+        {
+            Assert.That(App.PageLog, Is.EqualTo(log), message);
+            VerifyEnabledPages();
+        }
+
+        void VerifyEnabledPages() => VerifyEnabled(App.Windows[0].Page);
+
+        void VerifyEnabled(Page page)
+        {
+            Assert.That(page.IsPlatformEnabled, Is.True, "Page must be platform enabled");
+            if (page is FlyoutPage flyoutPage) {
+                VerifyEnabled(flyoutPage.Flyout);
+                VerifyEnabled(flyoutPage.Detail);
+            } else if (page is IPageContainer<Page> pageContainer) {
+                VerifyEnabled(pageContainer.CurrentPage);
+            }
         }
     }
 }

@@ -6,26 +6,28 @@ namespace DemoApp
 {
     public static class PageExtensions
     {
-        public static T AddPageLog<T>(this T page) where T : Page
+        public static T AddPageLog<T>(this T page) where T : Page => AddPageLog(page, (s) => App.PageLog += s);
+        
+        public static T AddPageLog<T>(this T page, Action<string> addToLog) where T : Page
         {
-            page.Appearing += OnAppearing;
-            page.Disappearing += OnDisappearing;
+            page.Appearing += (s, e) => OnAppearing(s, e, addToLog);
+            page.Disappearing += (s, e) => OnDisappearing(s, e, addToLog);
             return page;
         }
 
-        static void OnAppearing(object sender, EventArgs e)
+        static void OnAppearing(object sender, EventArgs e, Action<string> addToLog)
         {
             var page = sender as Page;
             var logMessage = $"A({GetLogName(page)})";
-            App.PageLog += $"{logMessage} ";
+            addToLog($"{logMessage} ");
             Console.WriteLine(logMessage);
         }
 
-        static void OnDisappearing(object sender, EventArgs e)
+        static void OnDisappearing(object sender, EventArgs e, Action<string> addToLog)
         {
             var page = sender as Page;
             var logMessage = $"D({GetLogName(page)})";
-            App.PageLog += $"{logMessage} ";
+            addToLog($"{logMessage} ");
             Console.WriteLine(logMessage);
         }
 

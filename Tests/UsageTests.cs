@@ -30,7 +30,7 @@ namespace Tests
         public void SettingNavigationPageWhileModalPageIsShown()
         {
             Launch(new App());
-            App.MainPage.Navigation.PushModalAsync(new ContentPage { Content = new Label { Text = "Modal Page" } });
+            App.Windows[0].Page.Navigation.PushModalAsync(new ContentPage { Content = new Label { Text = "Modal Page" } });
             App.Flyout.Detail = new NavigationPage(new ContentPage { Content = new Label { Text = "New Page" } });
             ShouldSee("Modal Page");
         }
@@ -50,7 +50,7 @@ namespace Tests
             var contentPage = new ContentPage {
                 Content = layout,
             };
-            App.Instance.Flyout.Detail = new NavigationPage(contentPage);
+            App.Flyout.Detail = new NavigationPage(contentPage);
 
             Task.Run(async delegate {
                 await Task.Delay(100);

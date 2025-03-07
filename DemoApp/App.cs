@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
@@ -13,20 +14,27 @@ namespace DemoApp
         public App()
         {
             PageLog = LifecycleLog = "";
-
-            ToggleFlyout();
             Instance = this;
         }
 
-
-        public FlyoutPage Flyout { get => MainPage as FlyoutPage; }
-
-        public void ToggleFlyout()
+        protected override Window CreateWindow(IActivationState activationState)
         {
-            if (MainPage is FlyoutPage)
-                MainPage = new NavigationPage(new NavigationDemoPage()).AddPageLog();
+            var window = new Window();
+            ToggleFlyout(window);
+            return window;
+        }
+
+        public FlyoutPage Flyout { get => Windows[0].Page as FlyoutPage; }
+
+        public void ToggleFlyout(Window window = null)
+        {
+            if (window == null)
+                window = Windows[0];
+            
+            if (window.Page is FlyoutPage)
+                window.Page  = new NavigationPage(new NavigationDemoPage()).AddPageLog();
             else
-                MainPage = new FlyoutPage {
+                window.Page  = new FlyoutPage {
                     Flyout = new MenuPage(),
                     Detail = new NavigationPage(new NavigationDemoPage()).AddPageLog(),
                 }.AddPageLog();
@@ -34,7 +42,7 @@ namespace DemoApp
 
         public static void ShowMessage(string title, string message)
         {
-            Current.MainPage.DisplayAlert(title, message, "Ok");
+            Current.Windows[0].Page.DisplayAlert(title, message, "Ok");
         }
 
         protected override void OnStart()
