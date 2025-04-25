@@ -34,6 +34,8 @@ namespace DemoApp
                         new DemoButton("Button with icon").WithFontImageSource("glyph"),
                         new DemoRadioButton("RadioButton") { GroupName = "group1" },
                         new DemoRadioButton("RadioButton2") { GroupName = "group1" },
+                        new DemoRadioButton("RadioButton3") { GroupName = "group2" },
+                        new DemoRadioButton("RadioButton4") { GroupName = "group2" },
                         new DemoLabel("Label").WithGestureRecognizer(),
                         CreateFormattedLabel(),
                         new DemoStack(),

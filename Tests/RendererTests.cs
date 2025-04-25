@@ -29,6 +29,8 @@ namespace Tests
       · glyph|Button with icon
       · RadioButton
       · RadioButton2
+      · RadioButton3
+      · RadioButton4
       · Label
       · first line
         second line

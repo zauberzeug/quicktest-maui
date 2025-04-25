@@ -42,11 +42,33 @@ namespace Tests
         [Test]
         public void TestRadioButton()
         {
+            void ShouldBeChecked(string text, bool isChecked) => Assert.That((FindFirst(text) as RadioButton).IsChecked, Is.EqualTo(isChecked));
+
+            Tap("RadioButton3");
+            ShouldSee("RadioButton3 checked");
+            Tap("Ok");
+            ShouldBeChecked("RadioButton", false);
+            ShouldBeChecked("RadioButton2", false);
+            ShouldBeChecked("RadioButton3", true);
+            ShouldBeChecked("RadioButton4", false);
+
             Tap("RadioButton");
             ShouldSee("RadioButton checked");
             Tap("Ok");
+            ShouldBeChecked("RadioButton", true);
+            ShouldBeChecked("RadioButton2", false);
+
             Tap("RadioButton2");
             ShouldSee("RadioButton2 checked");
+            Tap("Ok");
+            ShouldSee("RadioButton unchecked");
+            Tap("Ok");
+            ShouldBeChecked("RadioButton", false);
+            ShouldBeChecked("RadioButton2", true);
+
+            // Radio buttons in a different group are not affected
+            ShouldBeChecked("RadioButton3", true);
+            ShouldBeChecked("RadioButton4", false);
         }
 
         [Test]
