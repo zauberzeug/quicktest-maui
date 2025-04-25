@@ -27,6 +27,8 @@ namespace Tests
       · (searchbar_automation_id) search text
       · Button
       · glyph|Button with icon
+      · RadioButton
+      · RadioButton2
       · Label
       · first line
         second line

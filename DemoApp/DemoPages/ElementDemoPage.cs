@@ -32,6 +32,8 @@ namespace DemoApp
                         searchbar,
                         new DemoButton("Button"),
                         new DemoButton("Button with icon").WithFontImageSource("glyph"),
+                        new DemoRadioButton("RadioButton") { GroupName = "group1" },
+                        new DemoRadioButton("RadioButton2") { GroupName = "group1" },
                         new DemoLabel("Label").WithGestureRecognizer(),
                         CreateFormattedLabel(),
                         new DemoStack(),
@@ -44,6 +46,7 @@ namespace DemoApp
                         new DemoPicker("picker_automation_id", "Pick an item", new List<PickerObject>{new PickerObject("Item A"), new PickerObject("Item B"), new PickerObject("Item C")}),
                         new DemoCountdown(),
                         new DemoImage("logo.png"),
+
                     },
                 },
             };

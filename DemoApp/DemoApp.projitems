@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DemoElements\DemoRadioButton.cs"/>
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\CollectionViewDemoPage.cs"/>
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionViewGrouped.cs"/>
     <Compile Include="$(MSBuildThisFileDirectory)DemoPages\CollectionView\DemoCollectionViewWithGrid.cs"/>

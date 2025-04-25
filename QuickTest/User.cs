@@ -124,6 +124,8 @@ namespace QuickTest
 
             if (elementInfo.Element is ToolbarItem)
                 (elementInfo.Element as ToolbarItem).Command.Execute(null);
+            else if (elementInfo.Element is RadioButton)
+                (elementInfo.Element as RadioButton).IsChecked = true;
             else if (elementInfo.Element is Button)
                 (elementInfo.Element as Button).Command.Execute(null);
             else if (elementInfo.InvokeTap != null)

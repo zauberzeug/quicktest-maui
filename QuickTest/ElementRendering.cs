@@ -56,6 +56,7 @@ namespace QuickTest
             result += (element as Editor)?.Text;
             result += (element as SearchBar)?.Text;
             result += (element as Image)?.Source?.AutomationId;
+            result += (element as RadioButton)?.Content?.ToString();
 
             if (element is Picker) {
                 var picker = element as Picker;

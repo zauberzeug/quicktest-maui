@@ -40,6 +40,16 @@ namespace Tests
         }
 
         [Test]
+        public void TestRadioButton()
+        {
+            Tap("RadioButton");
+            ShouldSee("RadioButton checked");
+            Tap("Ok");
+            Tap("RadioButton2");
+            ShouldSee("RadioButton2 checked");
+        }
+
+        [Test]
         public void TestButton_FontImageSource()
         {
             ShouldSee("Button with icon");
