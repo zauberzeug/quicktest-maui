@@ -156,8 +156,12 @@ namespace QuickTest
                 info.InvokeTap = () => tapGestureRecognizers.ForEach(r => r.Invoke("SendTapped", sourceElement, null));
         }
 
+        // NOTE: Adding item and group header views as logical children is important for the FindParent feature to work.
+        // It also is consistent with the behaviour of the actual MAUI platform handlers.
         public static List<ElementInfo> Find(this CollectionView collectionView, Predicate<Element> predicate, Predicate<Element> containerPredicate)
         {
+            collectionView.ClearLogicalChildren();
+
             var result = new List<ElementInfo>();
 
             result.AddRange(Find(collectionView.Header, predicate, containerPredicate));
@@ -175,6 +179,7 @@ namespace QuickTest
                 if (template != null) {
                     var content = template.CreateContent() as View;
                     if (content != null) {
+                        collectionView.AddLogicalChild(content);
                         content.BindingContext = item;
                         var infos = content.Find(predicate, containerPredicate);
                         foreach (var info in infos) {
@@ -194,6 +199,7 @@ namespace QuickTest
                 foreach (var group in groups) {
                     var groupHeader = collectionView.GroupHeaderTemplate?.CreateContent() as View;
                     if (groupHeader != null) {
+                        collectionView.AddLogicalChild(groupHeader);
                         groupHeader.BindingContext = group;
                         result.AddRange(groupHeader.Find(predicate, containerPredicate));
                     }

@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using DemoApp;
+using Microsoft.Maui.Controls;
 using QuickTest;
 
 namespace Tests;
@@ -66,5 +68,24 @@ public class CollectionViewTests : QuickTest<App>
         Tap("DemoCollectionViewWithTapAction");
         Tap("Item A1");
         ShouldSee("Page for Item A1");
+    }
+
+    [Test]
+    public void TestParentIsSetupCorrectly()
+    {
+        Tap("DemoCollectionViewWithGrid");
+        var element = FindFirst("Col 1");
+        Assert.That(element, Is.Not.Null);
+
+        // Triggering the garbage collector reproduces an issue which occurs in real life, especially for larger
+        // test suites:
+        // If the parent for CollectionView ItemViews is not set, only the subviews of the ItemViews actually found
+        // by QuickTest are held by a reference. All other parts of ItemViews can be removed by the garbage collector,
+        // preventing the FindParent feature of QuickTest to work as intended.
+        GC.Collect();
+        Assert.That(element.FindParent<Grid>(), Is.Not.Null);
+
+        // We also expect the CollectionView to be a parent of the ItemViews.
+        Assert.That(element.FindParent<CollectionView>(), Is.Not.Null);
     }
 }
