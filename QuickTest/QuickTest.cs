@@ -93,13 +93,16 @@ namespace QuickTest
 
         protected virtual void Input(string automationId, string text)
         {
-            ShouldSee(automationId);
+            // For prompts, automationId can be null
+            if (automationId != null)
+                ShouldSee(automationId);
             User.Input(automationId, text);
         }
 
         protected virtual void Input(string automationId, int value)
         {
-            ShouldSee(automationId);
+            if (automationId != null)
+                ShouldSee(automationId);
             User.Input(automationId, value);
         }
 
@@ -205,6 +208,11 @@ namespace QuickTest
         /// Whether an action sheet is shown.
         /// </summary>
         protected virtual bool SeesActionSheet() => User.SeesActionSheet();
+
+        /// <summary>
+        /// Whether a prompt is shown.
+        /// </summary>
+        protected virtual bool SeesPrompt() => User.SeesPrompt();
 
         /// <summary>
         /// Find elements matching the exact string.

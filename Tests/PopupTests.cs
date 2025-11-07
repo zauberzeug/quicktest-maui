@@ -233,6 +233,75 @@ Message
             ShouldFail(() => TapNth("Message", 3));
         }
 
+        [Test]
+        public void TestPromptWithOk()
+        {
+            Tap("Show prompt async with initial value");
+            ShouldSee("PromptDialog", "Enter something", "Ok", "Cancel", "My initial value");
+            ShouldNotSee("Popup demo");
+
+            Input(null, "Test input");
+            Tap("Ok");
+            ShouldSee("Prompt result: Test input");
+            ShouldSee("Popup demo");
+        }
+
+        [Test]
+        public void TestPromptWithCancel()
+        {
+            Tap("Show prompt async with initial value");
+            ShouldSee("PromptDialog", "Enter something", "Ok", "Cancel");
+
+            Input(null, "Test input");
+            Tap("Cancel");
+            ShouldSee("Prompt result: ");
+            ShouldSee("Popup demo");
+        }
+
+        [Test]
+        public void TestPromptWithInitialValue()
+        {
+            Tap("Show prompt async with initial value");
+            ShouldSee("My initial value"); // This is the initial value
+
+            Tap("Ok");
+            ShouldSee("Prompt result: My initial value"); //
+        }
+
+        [Test]
+        public void TestSeesPrompt()
+        {
+            Assert.That(SeesPrompt(), Is.False);
+            Assert.That(SeesAlert(), Is.False);
+            Tap("Show prompt async with initial value");
+            Assert.That(SeesPrompt(), Is.True);
+            Assert.That(SeesAlert(), Is.False);
+        }
+
+        [Test]
+        public void TestPromptRenderingInitialValue()
+        {
+            Tap("Show prompt async with initial value");
+            Assert.That(Render(), Is.EqualTo(@"PromptDialog
+Enter something
+
+[My initial value]
+
+[Ok] [Cancel]"));
+        }
+
+        [Test]
+        public void TestPromptRenderingPlaceholder()
+        {
+            Tap("Show prompt async with placeholder");
+            Assert.That(Render(), Is.EqualTo(@"PromptDialog
+Enter something
+
+[My placeholder text]
+
+[Ok] [Cancel]"));
+        }
+
         void ShouldFail(TestDelegate code) => Assert.Throws<AssertionException>(code);
     }
 }

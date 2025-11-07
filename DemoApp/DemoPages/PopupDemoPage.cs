@@ -45,6 +45,14 @@ namespace DemoApp
                         Text = "Show action sheet which triggers alert",
                         Command = new Command(ShowActionSheetWhichTriggersAlert),
                     },
+                    new Button {
+                        Text = "Show prompt async with initial value",
+                        Command = new Command(ShowPromptAsyncWithInitialValue),
+                    },
+                    new Button {
+                        Text = "Show prompt async with placeholder",
+                        Command = new Command(ShowPromptAsyncWithPlaceholder),
+                    },
                     (result = new Label()),
                     new Label() {
                         Text = "Some text",
@@ -109,6 +117,22 @@ namespace DemoApp
                 await DisplayAlert("Alert", "Message", "Ok");
                 this.result.Text = $"Alert result: Ok";
             }
+        }
+
+        async void ShowPromptAsyncWithInitialValue()
+        {
+            var result = await DisplayPromptAsync("PromptDialog", "Enter something", "Ok", "Cancel",
+                initialValue: "My initial value"
+            );
+            this.result.Text = $"Prompt result: {result}";
+        }
+
+        async void ShowPromptAsyncWithPlaceholder()
+        {
+            var result = await DisplayPromptAsync("PromptDialog", "Enter something", "Ok", "Cancel",
+                placeholder: "My placeholder text"
+            );
+            this.result.Text = $"Prompt result: {result}";
         }
     }
 }

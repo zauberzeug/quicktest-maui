@@ -29,6 +29,9 @@ namespace QuickTest
             MessagingCenter.Subscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName, (page, actionSheet) => {
                 popups.Add(new ActionSheetPopup(actionSheet));
             });
+
+            MessagingCenter.Subscribe<Page, PromptArguments>(this, Page.PromptSignalName,
+                (page, prompt) => { popups.Add(new PromptPopup(prompt)); });
 #pragma warning restore CS0618 // Type or member is obsolete
 
             WireNavigation();
@@ -41,6 +44,7 @@ namespace QuickTest
 #pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
             MessagingCenter.Unsubscribe<Page, AlertArguments>(this, Page.AlertSignalName);
             MessagingCenter.Unsubscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName);
+            MessagingCenter.Unsubscribe<Page, PromptArguments>(this, Page.PromptSignalName);
 #pragma warning restore CS0618 // Type or member is obsolete
         }
 
@@ -87,6 +91,8 @@ namespace QuickTest
         public bool SeesAlert() => popups.Any() && popups.Last() is AlertPopup;
 
         public bool SeesActionSheet() => popups.Any() && popups.Last() is ActionSheetPopup;
+
+        public bool SeesPrompt() => popups.Any() && popups.Last() is PromptPopup;
 
         public List<Element> Find(string text)
         {
@@ -136,6 +142,12 @@ namespace QuickTest
 
         public void Input(string automationId, string text)
         {
+            // Handle prompt popups
+            if (popups.Any() && popups.Last() is PromptPopup) {
+                (popups.Last() as PromptPopup).Input(text);
+                return;
+            }
+
             var elements = FindElements(automationId);
 
             elements.First().SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, true);
