@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using NUnit.Framework;
 using Microsoft.Maui;
@@ -21,31 +22,70 @@ namespace QuickTest
 
             app.Invoke("OnStart");
 
-#pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
-            MessagingCenter.Subscribe<Page, AlertArguments>(this, Page.AlertSignalName, (page, alert) => {
-                popups.Add(new AlertPopup(alert));
-            });
-
-            MessagingCenter.Subscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName, (page, actionSheet) => {
-                popups.Add(new ActionSheetPopup(actionSheet));
-            });
-
-            MessagingCenter.Subscribe<Page, PromptArguments>(this, Page.PromptSignalName,
-                (page, prompt) => { popups.Add(new PromptPopup(prompt)); });
-#pragma warning restore CS0618 // Type or member is obsolete
+            // Install alert interception for .NET MAUI 10
+            InstallAlertInterception();
 
             WireNavigation();
+        }
+
+        void InstallAlertInterception()
+        {
+            var window = app.Windows[0];
+            if (window == null) {
+                throw new InvalidOperationException("Window was not created");
+            }
+
+            // Inject immediately - in headless tests there's no platform handler
+            // So AlertManager.Subscribe() won't create a subscription anyway
+            InjectTestAlertSubscription(window);
+        }
+
+        void InjectTestAlertSubscription(Microsoft.Maui.Controls.Window window)
+        {
+            try {
+                // Access Window.AlertManager using reflection
+                var windowType = typeof(Microsoft.Maui.Controls.Window);
+                var alertManagerProperty = windowType.GetProperty("AlertManager",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+
+                if (alertManagerProperty == null)
+                    throw new InvalidOperationException("Could not find AlertManager property on Window");
+
+                var alertManager = alertManagerProperty.GetValue(window);
+                if (alertManager == null)
+                    throw new InvalidOperationException("AlertManager is null");
+
+                // Get the _subscription field
+                var alertManagerType = alertManager.GetType();
+                var subscriptionField = alertManagerType.GetField("_subscription",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+
+                if (subscriptionField == null)
+                    throw new InvalidOperationException("Could not find _subscription field in AlertManager");
+
+                // Get the existing platform subscription (might be null in headless tests)
+                var existingSubscription = subscriptionField.GetValue(alertManager);
+
+                // Create our test subscription that wraps the platform one
+                var testSubscription = TestAlertSubscription.Create(this, existingSubscription);
+
+                // Inject our wrapped subscription
+                subscriptionField.SetValue(alertManager, testSubscription);
+            } catch (Exception ex) {
+                throw new InvalidOperationException($"Failed to install test alert subscription: {ex.Message}", ex);
+            }
+        }
+
+        internal void RegisterPopup(Popup popup)
+        {
+            popups.Add(popup);
         }
 
         Page WindowPage => app.Windows[0].Page;
 
         public void Cleanup()
         {
-#pragma warning disable CS0618 // Type or member is obsolete (MAUI currently still uses MessagingCenter internally)
-            MessagingCenter.Unsubscribe<Page, AlertArguments>(this, Page.AlertSignalName);
-            MessagingCenter.Unsubscribe<Page, ActionSheetArguments>(this, Page.ActionSheetSignalName);
-            MessagingCenter.Unsubscribe<Page, PromptArguments>(this, Page.PromptSignalName);
-#pragma warning restore CS0618 // Type or member is obsolete
+            // Cleanup is handled automatically when window is disposed
         }
 
         public NavigationPage CurrentNavigationPage {
