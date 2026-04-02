@@ -20,12 +20,12 @@ namespace QuickTest
             this.app = app;
             (app as IApplication).CreateWindow(null);
 
-            app.Invoke("OnStart");
 
             // Install alert interception for .NET MAUI 10
             InstallAlertInterception();
 
             WireNavigation();
+            app.Invoke("OnStart");
         }
 
         void InstallAlertInterception()
