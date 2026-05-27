@@ -8,7 +8,7 @@
 	<UseMaui>true</UseMaui>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit" Version="4.6.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.40"/>
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.40"/>
   </ItemGroup>
